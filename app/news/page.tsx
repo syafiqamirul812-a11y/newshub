@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import ThemeToggle from '../components/ThemeToggle';
+export const dynamic = 'force-dynamic';
 
 interface Article {
   title: string;

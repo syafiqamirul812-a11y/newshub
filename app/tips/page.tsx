@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
+export const dynamic = 'force-dynamic';
 
 export default function TipsPage() {
   const [title, setTitle] = useState('');
