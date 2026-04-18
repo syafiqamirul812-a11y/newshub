@@ -53,15 +53,26 @@ export default function NewsPage() {
     if (!search) fetchNews();
   }, [category]);
 
-  async function fetchNews(searchQuery = '') {
+async function fetchNews(searchQuery = '') {
     setLoading(true);
     try {
-      const url = searchQuery
-        ? `https://newsapi.org/v2/everything?q=${encodeURIComponent(searchQuery)}&language=en&pageSize=12&sortBy=publishedAt&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
-        : `https://newsapi.org/v2/top-headlines?category=${category}&language=en&pageSize=12&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`;
+      let url = '';
+      if (searchQuery) {
+        url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(searchQuery)}&lang=en&max=12&apikey=${process.env.NEXT_PUBLIC_GNEWS_API_KEY}`;
+      } else {
+        url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&max=12&apikey=${process.env.NEXT_PUBLIC_GNEWS_API_KEY}`;
+      }
       const res = await fetch(url);
       const data = await res.json();
-      setArticles(data.articles || []);
+      const mapped = (data.articles || []).map((a: any) => ({
+        title: a.title,
+        description: a.description,
+        url: a.url,
+        urlToImage: a.image,
+        publishedAt: a.publishedAt,
+        source: { name: a.source?.name || 'Unknown' },
+      }));
+      setArticles(mapped);
     } catch (err) { console.error(err); }
     setLoading(false);
   }
