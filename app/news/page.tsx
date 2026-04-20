@@ -56,13 +56,10 @@ export default function NewsPage() {
 async function fetchNews(searchQuery = '') {
     setLoading(true);
     try {
-      let url = '';
-      if (searchQuery) {
-        url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(searchQuery)}&lang=en&max=12&apikey=${process.env.NEXT_PUBLIC_GNEWS_API_KEY}`;
-      } else {
-        url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&max=12&apikey=${process.env.NEXT_PUBLIC_GNEWS_API_KEY}`;
-      }
-      const res = await fetch(url);
+      const params = searchQuery
+        ? `?query=${encodeURIComponent(searchQuery)}`
+        : `?category=${category}`;
+      const res = await fetch(`/api/news${params}`);
       const data = await res.json();
       const mapped = (data.articles || []).map((a: any) => ({
         title: a.title,
