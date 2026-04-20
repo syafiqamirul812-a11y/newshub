@@ -36,7 +36,7 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] justify-center px-8">
+    <main className="min-h-screen w-full bg-[#0a0a0f] text-white flex items-center justify-center px-8">
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-900 opacity-10 rounded-full blur-[120px]"></div>
         <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-900 opacity-10 rounded-full blur-[120px]"></div>
